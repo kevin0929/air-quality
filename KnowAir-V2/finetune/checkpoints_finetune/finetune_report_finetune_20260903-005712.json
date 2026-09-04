@@ -1,0 +1,35 @@
+{
+  "pretrained_ckpt": "../checkpoints_yrd/dcrnn_faithful_best.pt",
+  "finetuned_ckpt": "checkpoints_finetune/dcrnn_finetuned_finetune_20260903-005712_best.pt",
+  "data": "data/processed_yrd_finetune",
+  "before_finetune": {
+    "train": {
+      "MAE": 9.74566650390625,
+      "RMSE": 17.013050079345703,
+      "MAPE": 48.402658104896545
+    },
+    "val": {
+      "MAE": 7.050741672515869,
+      "RMSE": 10.596440315246582,
+      "MAPE": 40.974077582359314
+    },
+    "test": {
+      "MAE": 8.133467674255371,
+      "RMSE": 11.907540321350098,
+      "MAPE": 48.729607462882996
+    }
+  },
+  "after_finetune_test": {
+    "MAE": 8.072407722473145,
+    "RMSE": 11.822257995605469,
+    "MAPE": 48.29031825065613
+  },
+  "after_finetune_train": {
+    "MAE": 9.603889465332031,
+    "RMSE": 16.82328987121582,
+    "MAPE": 47.74368703365326
+  },
+  "test_mae_improvement_pct": 0.7507247121113895,
+  "test_rmse_improvement_pct": 0.7162043834671596,
+  "train_mae_improvement_pct": 1.454770061312808
+}

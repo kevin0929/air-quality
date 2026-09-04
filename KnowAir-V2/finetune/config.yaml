@@ -1,0 +1,79 @@
+# ============================================================
+# KnowAir-V2 時間延伸 pipeline 設定檔
+# 大部分參數已依 PCDCNet 論文描述的預設值填好,
+# 只有標記「<<< 請修改」的地方一定要改。
+# ============================================================
+
+date_range:
+  start: "2024-01-01"   # <<< 請修改:延伸區間起始日期(含)
+  end: "2024-12-31"     # <<< 請修改:延伸區間結束日期(含)
+  timezone_output: "UTC"  # 最終輸出的時間戳時區,建議維持 UTC 以跟 ERA5 對齊
+
+paths:
+  stations_csv: "stations.csv"   # <<< 請修改:指到你整理好的 355 站點清單(見 stations_template.csv)
+  raw_era5_dir: "raw/era5"
+  raw_cnemc_dir: "raw/cnemc"
+  output_dir: "output"
+
+# ------------------------------------------------------------
+# 氣象變數:對應 PCDCNet / KnowAir-V2 論文附錄描述的 8 個變數。
+# 如果你的預訓練模型當初用的是原始 KnowAir(PM2.5-GNN 版本)的 17 個氣象變數,
+# 請對照你自己的 dataloader 設定改這裡的清單。
+# ------------------------------------------------------------
+era5:
+  dataset: "reanalysis-era5-single-levels"
+  dataset_near_real_time: "reanalysis-era5-single-levels"  # ERA5T 用同一個 dataset,系統會依日期自動判斷
+  variables:
+    - name: "2m_temperature"
+      short_name: "t2m"
+    - name: "2m_dewpoint_temperature"
+      short_name: "d2m"
+    - name: "total_precipitation"
+      short_name: "tp"
+    - name: "surface_pressure"
+      short_name: "sp"
+    - name: "boundary_layer_height"
+      short_name: "blh"
+    - name: "mean_surface_downward_short_wave_radiation_flux"
+      short_name: "msdwswrf"
+      # 這個變數的 ecCodes 簡稱從 2025 年初起一直不穩定(ECMWF 官方論壇上使用者回報過
+      # msdwswrf -> avg_sdswrf -> avg_sdirswrf 這樣的變動,且沒有正式公告),
+      # 所以列出目前已知的候選名稱,程式會依序嘗試,用第一個在檔案裡真的找得到的。
+      aliases: ["avg_sdswrf", "avg_sdirswrf"]
+    - name: "100m_u_component_of_wind"
+      short_name: "u100"
+    - name: "100m_v_component_of_wind"
+      short_name: "v100"
+  # 區域用站點清單自動算 bounding box + buffer,不用手動填經緯度範圍
+  bbox_buffer_deg: 1.0
+  grid_resolution: 0.25   # ERA5 原生解析度,不用改
+  interpolation_method: "linear"   # 或 "nearest";注意:xarray/scipy 的 2D 網格內插參數名稱是
+                                     # "linear"(數學上等同雙線性內插),不是 "bilinear"——這裡曾經寫錯過
+
+# ------------------------------------------------------------
+# CNEMC 空氣品質資料來源設定
+# ------------------------------------------------------------
+cnemc:
+  source: "quotsoft"      # "quotsoft"(免申請,預設) 或 "aliyun"(需開通,見 README)
+  quotsoft_base_url: "https://quotsoft.net/air/data"
+  pollutants:
+    - "PM2.5"
+    - "O3"
+  aliyun:
+    appcode: ""            # 若 source 設為 aliyun,填入你的 AppCode
+    endpoint: "https://ali-air-quality-history.market.alicloudapi.com"  # 依你購買的方案 API 文件調整
+
+# ------------------------------------------------------------
+# 空間圖建構:沿用 PCDCNet 論文的 200km 地理距離閾值
+# ------------------------------------------------------------
+graph:
+  distance_threshold_km: 200
+  edge_weight: "binary"   # "binary"(0/1) 或 "inverse_distance"(1/距離,供你自己實驗用)
+
+# ------------------------------------------------------------
+# 缺值補值策略(近似實作,見 README 已知限制第 2 點)
+# ------------------------------------------------------------
+imputation:
+  max_time_gap_hours: 6      # 小於等於這個長度的缺值,用同站點時間線性內插
+  spatial_fallback_k: 5      # 超過上面長度的缺值,用最近的 k 個鄰站空間平均補
+  warn_missing_pct: 0.5      # 任一 feature 缺值比例超過這個門檻就警告(建議考慮從 stations.csv 移除該站)

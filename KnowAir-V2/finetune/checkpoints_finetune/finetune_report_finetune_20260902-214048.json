@@ -1,0 +1,29 @@
+{
+  "pretrained_ckpt": "../checkpoints_yrd/dcrnn_faithful_best.pt",
+  "finetuned_ckpt": "checkpoints_finetune/dcrnn_finetuned_finetune_20260902-214048_best.pt",
+  "data": "data/processed_yrd_finetune",
+  "before_finetune": {
+    "train": {
+      "MAE": 9.746384620666504,
+      "RMSE": 17.01264190673828,
+      "MAPE": 48.3953982591629
+    },
+    "val": {
+      "MAE": 7.050741672515869,
+      "RMSE": 10.596440315246582,
+      "MAPE": 40.974077582359314
+    },
+    "test": {
+      "MAE": 8.133467674255371,
+      "RMSE": 11.907540321350098,
+      "MAPE": 48.729607462882996
+    }
+  },
+  "after_finetune_test": {
+    "MAE": 8.19216537475586,
+    "RMSE": 11.990606307983398,
+    "MAPE": 48.951831459999084
+  },
+  "test_mae_improvement_pct": -0.7216811186977777,
+  "test_rmse_improvement_pct": -0.6975914789418292
+}

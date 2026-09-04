@@ -1,0 +1,23 @@
+{
+  "pretrained_ckpt": "../checkpoints_yrd/dcrnn_faithful_best.pt",
+  "finetuned_ckpt": null,
+  "data": "data/processed_yrd_finetune",
+  "before_finetune": {
+    "train": {
+      "MAE": 9.749192237854004,
+      "RMSE": 17.01632308959961,
+      "MAPE": 48.388686776161194
+    },
+    "val": {
+      "MAE": 7.050741672515869,
+      "RMSE": 10.596440315246582,
+      "MAPE": 40.974077582359314
+    },
+    "test": {
+      "MAE": 8.133467674255371,
+      "RMSE": 11.907540321350098,
+      "MAPE": 48.729607462882996
+    }
+  },
+  "result": "fine-tune 全程未曾贏過 baseline,未產生任何 checkpoint"
+}

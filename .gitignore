@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# ── aqi/：環境部 AQI 原始/前處理後資料 (太大，見 aqi/README.md 重新產生) ──────────
+aqi/data/raw_data/*
+!aqi/data/raw_data/.gitkeep
+aqi/data/processed/*
+!aqi/data/processed/.gitkeep
+aqi/data/processed_southwest/*
+!aqi/data/processed_southwest/.gitkeep
+aqi/data/combined_southwest.csv
+aqi/airphynet/data/*
+!aqi/airphynet/data/.gitkeep
+
+# ── KnowAir-V2/：原始 .nc 與前處理後資料 (太大，見 KnowAir-V2/README.md 重新產生) ──
+KnowAir-V2/data/*.nc
+KnowAir-V2/data/processed_yrd/*
+!KnowAir-V2/data/processed_yrd/.gitkeep
+KnowAir-V2/data/processed_bthsa/*
+!KnowAir-V2/data/processed_bthsa/.gitkeep
+
+# ── KnowAir-V2/finetune：ERA5/CNEMC 原始下載與中間產物 ──────────────────────────
+KnowAir-V2/finetune/raw/*
+!KnowAir-V2/finetune/raw/.gitkeep
+KnowAir-V2/finetune/data/*
+!KnowAir-V2/finetune/data/.gitkeep
+KnowAir-V2/finetune/output/*
+!KnowAir-V2/finetune/output/.gitkeep

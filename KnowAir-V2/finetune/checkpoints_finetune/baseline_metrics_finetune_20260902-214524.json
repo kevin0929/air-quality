@@ -1,0 +1,21 @@
+{
+  "pretrained_ckpt": "../checkpoints_yrd/dcrnn_faithful_best.pt",
+  "data": "data/processed_yrd_finetune",
+  "metrics": {
+    "train": {
+      "MAE": 9.739255905151367,
+      "RMSE": 17.003005981445312,
+      "MAPE": 48.40259552001953
+    },
+    "val": {
+      "MAE": 7.050741672515869,
+      "RMSE": 10.596440315246582,
+      "MAPE": 40.974077582359314
+    },
+    "test": {
+      "MAE": 8.133467674255371,
+      "RMSE": 11.907540321350098,
+      "MAPE": 48.729607462882996
+    }
+  }
+}

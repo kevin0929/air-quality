@@ -31,3 +31,7 @@ KnowAir-V2/finetune/data/*
 !KnowAir-V2/finetune/data/.gitkeep
 KnowAir-V2/finetune/output/*
 !KnowAir-V2/finetune/output/.gitkeep
+KnowAir-V2/finetune/checkpoints_finetune/*
+!KnowAir-V2/finetune/checkpoints_finetune/.gitkeep
+KnowAir-V2/finetune/runs_finetune/*
+!KnowAir-V2/finetune/runs_finetune/.gitkeep

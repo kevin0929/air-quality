@@ -4,6 +4,13 @@
 沿用一模一樣的架構與訓練邏輯，只是換成 [KnowAir-V2](https://doi.org/10.5281/zenodo.15614907) 資料集。
 另外 `finetune/` 底下是拿 ERA5 + CNEMC 真實資料延伸時間段、對 DCRNN 做 fine-tune 的子專案。
 
+## 文件入口
+
+- [Introduction.md](Introduction.md)：專案目的、資料與四種模型的概念導覽。
+- [使用手冊.md](使用手冊.md)：環境設定、資料前處理、訓練、評估與 TensorBoard 操作。
+- [原始碼說明.md](原始碼說明.md)：根目錄各程式模組及資料流的說明。
+- [`finetune/`](finetune/Readme.md)：ERA5/CNEMC 時間延伸資料、DCRNN 微調的完整說明。
+
 ## 目錄結構
 
 ```
